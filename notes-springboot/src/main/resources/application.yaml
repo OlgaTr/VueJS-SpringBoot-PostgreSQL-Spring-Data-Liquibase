@@ -1,0 +1,18 @@
+server:
+  port: 8091
+
+logging.level:
+  root: INFO
+  org.springframework.security: TRACE
+
+spring:
+  dataSource:
+    username: postgres
+    password: 123
+    url: jdbc:postgresql://localhost:5432/notes?currentSchema=journal
+    driver-class-name: org.postgresql.Driver
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080

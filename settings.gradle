@@ -1,0 +1,3 @@
+rootProject.name = 'notes'
+include 'notes-springboot'
+include 'notes-reactjs'
