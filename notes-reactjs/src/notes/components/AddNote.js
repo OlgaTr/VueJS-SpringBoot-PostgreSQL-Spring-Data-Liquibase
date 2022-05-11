@@ -7,9 +7,6 @@ const AddNote = () => {
     const [note, setNote] = useState({title:'', content: ''});
     const navigate = useNavigate()
 
-    // const handleTitleInput = (event) => {
-    //     setNote({...note, [event.title]: event.target.value})
-    // }
 
     const handleInput = (event) => {
         setNote({...note, [event.target.name]: event.target.value})
@@ -20,21 +17,6 @@ const AddNote = () => {
         event.preventDefault();
     }
 
-    // return (
-    //     // <form onSubmit={handleSubmit}>
-    //     //     <label>Title</label>
-    //         <input
-    //             type="text"
-    //             name="title"
-    //             // onChange={inputChanged}
-    //             value={title}/>
-    //         // <label>Text</label>
-    //         <input type="text" name="content" onChange={inputChanged}
-    //             value={note.content}/>
-    //         <input type="submit" value="Save note"/>
-    //         <button> Cancel </button>
-    //     // </form>
-    // )
     return (
         <form onSubmit={handleSubmit}>
             <input
