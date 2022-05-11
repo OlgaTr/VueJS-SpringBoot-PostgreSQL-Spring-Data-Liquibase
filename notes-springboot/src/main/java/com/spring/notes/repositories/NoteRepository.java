@@ -16,4 +16,8 @@ public interface NoteRepository extends CrudRepository<Note, Long> {
     @Query("insert into notes (title, content, date, notebooks_key) values (:title, :content, :date, :notebookId)")
     void addNote(@Param("notebookId") long notebookId, @Param("title") String title,
                  @Param("content") String content, @Param("date")Date date);
+
+    @Modifying
+    @Query("delete from notes where note_id = :noteId")
+    void deleteNote(@Param("noteId") long noteId);
 }

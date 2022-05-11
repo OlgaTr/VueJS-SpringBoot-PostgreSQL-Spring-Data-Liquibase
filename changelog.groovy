@@ -32,17 +32,17 @@ databaseChangeLog {
 
     changeSet(id: 'user-table', author: 'olga') {
         createTable(schemaName: 'journal', tableName:'users') {
-            column(name: 'userId', type: 'bigint', autoIncrement: true) {
+            column(name: 'user_id', type: 'bigint', autoIncrement: true) {
                 constraints(primaryKey: true, nullable: false)
             }
-            column(name: 'name', type: 'varchar')
+            column(name: 'username', type: 'varchar')
             column(name: 'password', type: 'varchar')
         }
     }
 
-//    changeSet(id: 'insert-data', author: 'olga') {
-//        sql {
-//            "INSERT INTO journal.notes (title) VALUES ('First note'), ('Second note')"
-//        }
-//    }
+    changeSet(id: 'insert-data', author: 'olga') {
+        sql {
+            "INSERT INTO journal.users (username, password) VALUES ('olga', 'password')"
+        }
+    }
 }

@@ -7,7 +7,8 @@ import com.spring.notes.repositories.NotebookRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -30,8 +31,9 @@ public class NotebookServiceImpl implements NotebookService{
     public void addNote(long notebookId, Note note) {
         String title = note.getTitle();
         String content = note.getContent();
-        Date date = note.getDate();
-        noteRepository.addNote(notebookId, title, content, date);
+        LocalDate date = LocalDate.now();
+        Timestamp timestamp = Timestamp.valueOf(date.atStartOfDay());
+        noteRepository.addNote(notebookId, title, content, timestamp);
     }
 
     @Override

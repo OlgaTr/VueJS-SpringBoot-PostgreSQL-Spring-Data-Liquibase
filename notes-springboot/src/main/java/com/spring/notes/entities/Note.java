@@ -3,20 +3,25 @@ package com.spring.notes.entities;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Table("notes")
 public class Note {
 
     private @Id long noteId;
-    String title;
-    String content;
-    Date date;
+    private String title;
+    private String content;
+    private LocalDate date;
 
-    public Note(String title, String content, Date date) {
+    public Note(String title, String content, LocalDate date) {
         this.title = title;
         this.content = content;
         this.date = date;
+    }
+
+    public long getNoteId() {
+        return noteId;
     }
 
     public String getTitle() {
@@ -27,7 +32,7 @@ public class Note {
         return content;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 

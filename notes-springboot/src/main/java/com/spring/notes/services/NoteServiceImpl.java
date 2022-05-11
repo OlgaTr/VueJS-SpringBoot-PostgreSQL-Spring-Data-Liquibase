@@ -18,7 +18,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public List<Note> findAll() {
-        return null;
+    public void deleteNote(long noteId) {
+        noteRepository.deleteNote(noteId);
     }
 }

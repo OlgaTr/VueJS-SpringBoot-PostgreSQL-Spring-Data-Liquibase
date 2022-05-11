@@ -16,14 +16,14 @@ public class NotebookController {
         this.notebookService = notebookService;
     }
 
-    @GetMapping(value = "/notebooks/notes/{notebookId}")
+    @GetMapping(value = "/notebooks/{notebookId}/notes")
     public List<Note> listNotes(@PathVariable long notebookId) {
         List<Note> notes = notebookService.listNotes(notebookId);
         System.out.println(notes);
         return notes;
     }
 
-    @PostMapping("/notebooks/{notebookId}/note")
+    @PostMapping("/notebooks/{notebookId}/notes")
     public void addNote(@PathVariable long notebookId, @RequestBody Note note) {
         notebookService.addNote(notebookId, note);
     }
