@@ -5,14 +5,12 @@ import com.spring.notes.entities.Notebook;
 import com.spring.notes.repositories.NoteRepository;
 import com.spring.notes.repositories.NotebookRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@Transactional
 public class NotebookServiceImpl implements NotebookService{
     private final NotebookRepository notebookRepository;
     private final NoteRepository noteRepository;
@@ -23,14 +21,14 @@ public class NotebookServiceImpl implements NotebookService{
     }
 
     @Override
-    public void addNotebook(Notebook notebook) {
-        notebookRepository.save(notebook);
+    public Notebook getNotebook(String username) {
+        return notebookRepository.findNotebookByUsername(username);
     }
 
     @Override
     public void addNote(long notebookId, Note note) {
-        String title = note.getTitle();
-        String content = note.getContent();
+        String title = note.title();
+        String content = note.content();
         LocalDate date = LocalDate.now();
         Timestamp timestamp = Timestamp.valueOf(date.atStartOfDay());
         noteRepository.addNote(notebookId, title, content, timestamp);

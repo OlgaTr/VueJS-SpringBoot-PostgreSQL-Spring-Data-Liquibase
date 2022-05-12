@@ -1,10 +1,8 @@
 package com.spring.notes.controllers;
 
+import com.spring.notes.entities.Note;
 import com.spring.notes.services.NoteService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
@@ -19,4 +17,10 @@ public class NoteController {
     public void deleteNote(@PathVariable long noteId) {
         noteService.deleteNote(noteId);
     }
+
+    @PutMapping("/notes/{noteId}")
+    public void updateNote(@RequestBody Note note, @PathVariable long noteId) {
+
+    }
+
 }

@@ -6,7 +6,7 @@ import com.spring.notes.entities.Notebook;
 import java.util.List;
 
 public interface NotebookService {
-    void addNotebook(Notebook notebook);
+    Notebook getNotebook(String username);
     void addNote(long notebookId, Note note);
     List<Note> listNotes(long notebookId);
 }

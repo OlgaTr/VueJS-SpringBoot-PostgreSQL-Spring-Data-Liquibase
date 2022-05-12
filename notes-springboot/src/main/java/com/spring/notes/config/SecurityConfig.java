@@ -3,6 +3,7 @@ package com.spring.notes.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,9 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.cors().and()
                 .authorizeRequests()
-//                .anyRequest().authenticated();
-                .anyRequest().permitAll();
-//        http.formLogin().and().httpBasic();
+                .mvcMatchers(HttpMethod.POST, "/users").permitAll()
+                .anyRequest().authenticated();
+//                .anyRequest().permitAll();
+        http.formLogin().and().httpBasic();
     }
 
     @Bean

@@ -1,10 +1,10 @@
 package com.spring.notes.controllers;
 
 import com.spring.notes.entities.Note;
-import com.spring.notes.entities.Notebook;
 import com.spring.notes.services.NotebookService;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -16,21 +16,19 @@ public class NotebookController {
         this.notebookService = notebookService;
     }
 
-    @GetMapping(value = "/notebooks/{notebookId}/notes")
-    public List<Note> listNotes(@PathVariable long notebookId) {
+    @GetMapping(value = "/notebooks/notes")
+    public List<Note> listNotes(Principal principal) {
+        String username = principal.getName();
+        long notebookId = notebookService.getNotebook(username).id();
         List<Note> notes = notebookService.listNotes(notebookId);
         System.out.println(notes);
         return notes;
     }
 
-    @PostMapping("/notebooks/{notebookId}/notes")
-    public void addNote(@PathVariable long notebookId, @RequestBody Note note) {
+    @PostMapping("/notebooks/notes")
+    public void addNote(Principal principal, @RequestBody Note note) {
+        String username = principal.getName();
+        long notebookId = notebookService.getNotebook(username).id();
         notebookService.addNote(notebookId, note);
     }
-
-    @PostMapping("/notebooks")
-    public void addNotebook(@RequestBody Notebook notebook) {
-        notebookService.addNotebook(notebook);
-    }
-
 }

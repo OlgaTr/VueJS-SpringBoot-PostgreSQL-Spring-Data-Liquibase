@@ -1,6 +1,7 @@
 package com.spring.notes.repositories;
 
 import com.spring.notes.entities.User;
+import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -11,4 +12,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     @Query("select * from users where username = :username")
     User findByName(@Param("username") String username);
+
+    @Modifying
+    @Query("insert into users (username, password) values (:username, :password)")
+    void addUser(@Param("username") String username, @Param("password") String password);
 }
