@@ -25,4 +25,20 @@ public class UserServiceImpl implements UserService{
     public User findByName(String username) {
         return userRepository.findByName(username);
     }
+
+    @Override
+    public void setCurrentUser(User user) {
+        userRepository.clean();
+        userRepository.setCurrentUser(user.username(), user.password());
+    }
+
+    @Override
+    public User getCurrentUser() {
+        return userRepository.getCurrentUser();
+    }
+
+    @Override
+    public void cleanCurrentUser() {
+        userRepository.clean();
+    }
 }

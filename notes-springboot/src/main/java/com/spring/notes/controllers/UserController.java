@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.security.Principal;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("*")
 public class UserController {
     private final UserService userService;
 
@@ -17,13 +17,24 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PostMapping("/login")
+    public void logInUser(@RequestBody User user) {
+        userService.setCurrentUser(user);
+    }
+
+    @DeleteMapping("/logout")
+    public void logOutUser() {
+        System.out.println("@@@@@@@@@@@@@@@@@@@" + "Hello from logout");
+        userService.cleanCurrentUser();
+    }
+
+    @GetMapping("/login")
+    public User currentUser() {
+        return userService.getCurrentUser();
+    }
+
     @PostMapping("/users")
     public void addUser(@RequestBody User user) {
         userService.addUser(user);
-    }
-
-    @GetMapping("/users")
-    public String getUsername(Principal principal) {
-        return principal.getName();
     }
 }

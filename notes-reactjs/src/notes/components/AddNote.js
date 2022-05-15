@@ -1,19 +1,25 @@
 import React, {useState} from "react";
 import Button from "react-bootstrap/Button";
 import {useNavigate} from "react-router-dom";
-import {addNote} from "../api/NoteService";
+import {addNote} from "../api/NoteAPI";
+import {getCurrentUser} from "../../users/api/UserAPI";
 
-const AddNote = () => {
+function AddNote() {
     const [note, setNote] = useState({title:'', content: ''});
-    const navigate = useNavigate()
 
+    const [user, setUser] = useState({username: '', password: ''})
+    getCurrentUser().then(result => {
+        setUser({...user, username: result.data.username, password: result.data.password})
+    })
+
+    const navigate = useNavigate()
 
     const handleInput = (event) => {
         setNote({...note, [event.target.name]: event.target.value})
     }
 
     const handleSubmit = (event) => {
-        addNote(note).then(navigate('/'))
+        addNote(user, note).then(navigate('/notes'))
         event.preventDefault();
     }
 
@@ -31,7 +37,7 @@ const AddNote = () => {
                 type="text"
                 placeholder="Your note"
             />
-            <Button onClick={() => navigate('/')}> Cancel </Button>
+            <Button onClick={() => navigate('/notes')}> Cancel </Button>
             <input type="submit" value="Save"/>
         </form>
     )

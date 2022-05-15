@@ -30,9 +30,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and()
                 .authorizeRequests()
                 .mvcMatchers(HttpMethod.POST, "/users").permitAll()
-                .anyRequest().authenticated();
+                .mvcMatchers("/login", "/logout", "/static/**", "**.js", "**.json", "index.html").permitAll()
+                .anyRequest().authenticated()
 //                .anyRequest().permitAll();
-        http.formLogin().and().httpBasic();
+                .and()
+//                .exceptionHandling()
+//                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+//                .and()
+//                .formLogin()
+//                .and()
+                .httpBasic();
+//                .loginPage("/login")
+//                .permitAll()
+//                .successHandler((req, res, auth) -> res.setStatus(HttpStatus.NO_CONTENT.value()));
     }
 
     @Bean
