@@ -24,7 +24,6 @@ public class UserController {
 
     @DeleteMapping("/logout")
     public void logOutUser() {
-        System.out.println("@@@@@@@@@@@@@@@@@@@" + "Hello from logout");
         userService.cleanCurrentUser();
     }
 
