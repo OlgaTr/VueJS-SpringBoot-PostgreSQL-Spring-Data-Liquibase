@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 
 @Repository
 public interface NoteRepository extends CrudRepository<Note, Long> {
@@ -17,7 +18,13 @@ public interface NoteRepository extends CrudRepository<Note, Long> {
     void addNote(@Param("notebookId") long notebookId, @Param("title") String title,
                  @Param("content") String content, @Param("date")Date date);
 
+    @Query("select * from notes where note_id = :noteId")
+    Note getNoteById(@Param("noteId") long noteId);
+
     @Modifying
     @Query("delete from notes where note_id = :noteId")
     void deleteNote(@Param("noteId") long noteId);
+
+    @Query("select * from notes left join notebooks on notebook_id = notebooks_key where username = :username")
+    List<Note> findNotes(@Param("username") String username);
 }

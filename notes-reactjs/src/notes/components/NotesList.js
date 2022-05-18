@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Button from 'react-bootstrap/Button'
 import {useNavigate} from "react-router-dom";
 import {listNotes} from '../api/NoteAPI'
@@ -9,22 +9,29 @@ function NotesList() {
 
     const navigate = useNavigate()
     const [notes, setNotes] = useState([])
-
     const [user, setUser] = useState({username: '', password: ''})
-    getCurrentUser().then(result => {
-        setUser({...user, username: result.data.username, password: result.data.password})
-    })
+    const [render, performRerender] = useState({})
 
-    listNotes(user).then(result => {
-            setNotes(result.data)
-        });
+    useEffect(() => {
+        getCurrentUser()
+            .then(result => {
+                setUser(result.data)
+                listNotes(result.data)
+                    .then(response => {setNotes(response.data)})}
+            )
+    }, [render])
+
+    function handleDelete(noteId) {
+        deleteNote(user, noteId)
+            .then(() => performRerender({...render}))
+    }
 
     const tableRows = notes.map((note) =>
         <tr key={note.noteId}>
             <td> {note.date} </td>
             <td> {note.title} </td>
-            <td><Button> Open </Button></td>
-            <td><Button onClick={() => deleteNote(user, note.noteId)}> Delete </Button></td>
+            <td><Button onClick={() => navigate(`/notes/${note.noteId}`)}> Open </Button></td>
+            <td><Button onClick={() => handleDelete(note.noteId)}> Delete </Button></td>
         </tr>
 );
 
@@ -46,7 +53,9 @@ function NotesList() {
                         </tr>
                     </thead>
                     <tbody>
-                        {tableRows}
+                        {
+                            tableRows
+                        }
                     </tbody>
                 </table>
                 :

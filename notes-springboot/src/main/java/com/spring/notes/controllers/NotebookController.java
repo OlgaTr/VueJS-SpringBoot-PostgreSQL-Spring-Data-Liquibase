@@ -1,11 +1,8 @@
 package com.spring.notes.controllers;
 
-import com.spring.notes.entities.Note;
 import com.spring.notes.services.NotebookService;
-import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
-import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("*")
@@ -16,19 +13,4 @@ public class NotebookController {
         this.notebookService = notebookService;
     }
 
-    @GetMapping(value = "/notebooks/notes")
-    public List<Note> listNotes(Principal principal) {
-        String username = principal.getName();
-        long notebookId = notebookService.getNotebook(username).notebookId();
-        List<Note> notes = notebookService.listNotes(notebookId);
-        System.out.println(notes);
-        return notes;
-    }
-
-    @PostMapping("/notebooks/notes")
-    public void addNote(Principal principal, @RequestBody Note note) {
-        String username = principal.getName();
-        long notebookId = notebookService.getNotebook(username).notebookId();
-        notebookService.addNote(notebookId, note);
-    }
 }

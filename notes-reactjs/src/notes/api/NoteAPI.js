@@ -18,6 +18,13 @@ function deleteNote(user, noteId) {
                 password: user.password}});
 }
 
+function getNote(user, noteId) {
+    return axios.get(`${BASE_URL}/notes/${noteId}`,
+        {auth: {
+                username: user.username,
+                password: user.password}});
+}
+
 function listNotes(user) {
     return axios.get(`${BASE_URL}/notebooks/notes`,
         {auth: {
@@ -26,5 +33,5 @@ function listNotes(user) {
 }
 
 export {
-    BASE_URL, addNote, deleteNote, listNotes
+    BASE_URL, addNote, getNote, deleteNote, listNotes
 };

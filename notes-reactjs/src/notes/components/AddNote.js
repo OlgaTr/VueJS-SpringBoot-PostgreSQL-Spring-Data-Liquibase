@@ -5,14 +5,13 @@ import {addNote} from "../api/NoteAPI";
 import {getCurrentUser} from "../../users/api/UserAPI";
 
 function AddNote() {
-    const [note, setNote] = useState({title:'', content: ''});
-
-    const [user, setUser] = useState({username: '', password: ''})
-    getCurrentUser().then(result => {
-        setUser({...user, username: result.data.username, password: result.data.password})
-    })
-
     const navigate = useNavigate()
+    const [note, setNote] = useState({title:'', content: ''});
+    const [user, setUser] = useState({username: '', password: ''})
+
+    getCurrentUser().then(result => {
+        setUser(result.data)
+    })
 
     const handleInput = (event) => {
         setNote({...note, [event.target.name]: event.target.value})
@@ -20,7 +19,6 @@ function AddNote() {
 
     const handleSubmit = (event) => {
         addNote(user, note).then(navigate('/notes'))
-        event.preventDefault();
     }
 
     return (
