@@ -42,11 +42,4 @@ databaseChangeLog {
             column(name: 'password', type: 'varchar')
         }
     }
-
-    changeSet(id: 'current-user-table', author: 'olga') {
-        createTable(schemaName: 'journal', tableName: 'cuser') {
-            column(name: 'username', type: 'varchar')
-            column(name: 'password', type: 'varchar')
-        }
-    }
 }

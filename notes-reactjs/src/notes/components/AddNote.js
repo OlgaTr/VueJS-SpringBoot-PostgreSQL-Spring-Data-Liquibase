@@ -1,24 +1,23 @@
 import React, {useState} from "react";
 import Button from "react-bootstrap/Button";
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 import {addNote} from "../api/NoteAPI";
-import {getCurrentUser} from "../../users/api/UserAPI";
+import {selectUsername, selectPassword} from "../../app/userSlice";
 
 function AddNote() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [note, setNote] = useState({title:'', content: ''});
-    const [user, setUser] = useState({username: '', password: ''})
-
-    getCurrentUser().then(result => {
-        setUser(result.data)
-    })
+    const username = useSelector(selectUsername);
+    const password = useSelector(selectPassword);
 
     const handleInput = (event) => {
         setNote({...note, [event.target.name]: event.target.value})
     }
 
     const handleSubmit = (event) => {
-        addNote(user, note).then(navigate('/notes'))
+        addNote(username, password, note).then(navigate('/notes'))
+        event.preventDefault()
     }
 
     return (

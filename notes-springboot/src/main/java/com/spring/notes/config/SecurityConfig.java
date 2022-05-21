@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and()
                 .authorizeRequests()
                 .mvcMatchers(HttpMethod.POST, "/users").permitAll()
-                .mvcMatchers("/login", "/logout", "/static/**", "**.js", "**.json", "index.html", "**.favicon.ico").permitAll()
+                .mvcMatchers("/login", "/logout", "/static/**", "**.js", "**.json", "index.html", "/favicon.ico").permitAll()
                 .anyRequest().authenticated()
 //                .anyRequest().permitAll();
                 .and()

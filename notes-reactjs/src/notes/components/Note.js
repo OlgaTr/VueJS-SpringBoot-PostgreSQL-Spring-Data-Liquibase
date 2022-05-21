@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
+import {useSelector} from "react-redux";
 import {getNote} from "../api/NoteAPI";
-import {getCurrentUser} from "../../users/api/UserAPI";
+import {selectPassword, selectUsername} from "../../app/userSlice";
 
 function Note() {
-    const [note, setNote] = useState({title: '', content: ''})
-    const noteId = useParams().noteId
+    const [note, setNote] = useState({title: '', content: ''});
+    const noteId = useParams().noteId;
+    const username = useSelector(selectUsername);
+    const password = useSelector(selectPassword);
 
     useEffect(() => {
-        getCurrentUser()
-            .then(result => {
-                getNote(result.data, noteId)
-                    .then(response => setNote(response.data))
-        })
+        getNote(username, password, noteId)
+            .then(response  => setNote(response.data));
     }, [])
 
     return (
@@ -23,4 +23,4 @@ function Note() {
     )
 }
 
-export default Note
+export default Note;

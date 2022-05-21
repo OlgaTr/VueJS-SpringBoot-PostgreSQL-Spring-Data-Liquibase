@@ -17,21 +17,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/login")
-    public void logInUser(@RequestBody User user) {
-        userService.setCurrentUser(user);
-    }
-
-    @DeleteMapping("/logout")
-    public void logOutUser() {
-        userService.cleanCurrentUser();
-    }
-
-    @GetMapping("/login")
-    public User currentUser() {
-        return userService.getCurrentUser();
-    }
-
     @PostMapping("/users")
     public void addUser(@RequestBody User user) {
         userService.addUser(user);

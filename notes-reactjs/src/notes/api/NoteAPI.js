@@ -1,35 +1,36 @@
 import axios from 'axios';
-import React from "react";
+import React from 'react';
 
 const BASE_URL = "http://localhost:8090"
 
-function addNote(user, note) {
-    return axios.post(`${BASE_URL}/notebooks/notes`, note,
+function addNote(cusername, cpassword, note) {
+    return axios.post(`${BASE_URL}/notes`, note,
         {auth: {
-                username: user.username,
-                password: user.password
+                username: cusername,
+                password: cpassword
             }});
 }
 
-function deleteNote(user, noteId) {
+function deleteNote(cusername, cpassword, noteId) {
     return axios.delete(`${BASE_URL}/notes/${noteId}`,
         {auth: {
-                username: user.username,
-                password: user.password}});
+                username: cusername,
+                password: cpassword}});
 }
 
-function getNote(user, noteId) {
+function getNote(cusername, cpassword, noteId) {
     return axios.get(`${BASE_URL}/notes/${noteId}`,
         {auth: {
-                username: user.username,
-                password: user.password}});
+                username: cusername,
+                password: cpassword}});
 }
 
-function listNotes(user) {
-    return axios.get(`${BASE_URL}/notebooks/notes`,
+function listNotes(cusername, cpassword) {
+    return axios.get(`${BASE_URL}/notes`,
         {auth: {
-                username: user.username,
-                password: user.password}});
+                username: cusername,
+                password: cpassword}})
+        .then(response => response.data);
 }
 
 export {

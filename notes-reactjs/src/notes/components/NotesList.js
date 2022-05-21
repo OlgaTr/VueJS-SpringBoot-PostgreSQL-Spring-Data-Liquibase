@@ -1,28 +1,24 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button'
 import {useNavigate} from "react-router-dom";
-import {listNotes} from '../api/NoteAPI'
-import {deleteNote} from "../api/NoteAPI";
-import {getCurrentUser} from "../../users/api/UserAPI";
+import {deleteNote, listNotes} from '../api/NoteAPI'
+import {selectPassword, selectUsername} from "../../app/userSlice";
+import {useSelector} from "react-redux";
 
 function NotesList() {
 
-    const navigate = useNavigate()
-    const [notes, setNotes] = useState([])
-    const [user, setUser] = useState({username: '', password: ''})
-    const [render, performRerender] = useState({})
+    const navigate = useNavigate();
+    const username = useSelector(selectUsername);
+    const password = useSelector(selectPassword);
+    const [notes, setNotes] = useState([]);
+    const [render, performRerender] = useState({});
 
     useEffect(() => {
-        getCurrentUser()
-            .then(result => {
-                setUser(result.data)
-                listNotes(result.data)
-                    .then(response => {setNotes(response.data)})}
-            )
+        listNotes(username, password).then(response => setNotes(response))
     }, [render])
 
     function handleDelete(noteId) {
-        deleteNote(user, noteId)
+        deleteNote(username, password, noteId)
             .then(() => performRerender({...render}))
     }
 
@@ -60,7 +56,7 @@ function NotesList() {
                 </table>
                 :
                 <h4>
-                    Add your first note :)
+                    Add your first note ☕
                 </h4>
             }
         </div>

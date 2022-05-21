@@ -16,15 +16,4 @@ public interface UserRepository extends CrudRepository<User, String> {
     @Modifying
     @Query("insert into users (username, password) values (:username, :password)")
     void addUser(@Param("username") String username, @Param("password") String password);
-
-    @Modifying
-    @Query("insert into cuser (username, password) values (:username, :password)")
-    void setCurrentUser(@Param("username") String username, @Param("password") String password);
-
-    @Modifying
-    @Query("delete from cuser")
-    void clean();
-
-    @Query("select * from cuser")
-    User getCurrentUser();
 }

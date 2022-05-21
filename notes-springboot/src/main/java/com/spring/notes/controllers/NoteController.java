@@ -19,7 +19,7 @@ public class NoteController {
         this.notebookService = notebookService;
     }
 
-    @PostMapping("/notebooks/notes")
+    @PostMapping("/notes")
     public void addNote(Principal principal, @RequestBody Note note) {
         String username = principal.getName();
         noteService.addNote(username, note);
@@ -40,7 +40,7 @@ public class NoteController {
 
     }
 
-    @GetMapping(value = "/notebooks/notes")
+    @GetMapping(value = "/notes")
     public List<Note> listNotes(Principal principal) {
         String username = principal.getName();
         List<Note> notes = noteService.listNotes(username);
