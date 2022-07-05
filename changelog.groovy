@@ -26,11 +26,18 @@ databaseChangeLog {
             column(name: 'title', type: 'varchar')
             column(name: 'content', type: 'varchar')
             column(name: 'date', type: 'date')
-            column(name: 'notebooks_key', type: 'bigint') {
-                constraints(foreignKeyName: 'notebook', referencedTableName: 'notebooks',
-                        referencedTableSchemaName: 'journal', referencedColumnNames: 'notebook_id',
-                        nullable: false)
-            }
+            column(name: 'username', type: 'varchar')
+//            column(name: 'notebooks_key', type: 'bigint') {
+//                constraints(foreignKeyName: 'notebook', referencedTableName: 'notebooks',
+//                        referencedTableSchemaName: 'journal', referencedColumnNames: 'notebook_id',
+//                        nullable: false)
+//            }
+        }
+    }
+
+    changeSet(id: 'insert-data', author: 'olga') {
+        sql {
+            "INSERT INTO journal.notes (title, username) VALUES ('my note', 'user')"
         }
     }
 

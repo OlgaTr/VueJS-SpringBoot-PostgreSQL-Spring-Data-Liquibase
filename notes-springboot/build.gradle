@@ -1,17 +1,9 @@
-//buildscript {
-//    ext {
-//        springBootVersion = '2.6.7'
-//    }
-//    dependencies {
-//        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-//    }
-//}
-
 plugins {
     id 'org.springframework.boot' version '2.6.7'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'org.liquibase.gradle' version '2.1.0'
+    id "org.jetbrains.kotlin.jvm" version "1.7.0"
 }
 
 group = 'com.spring'
@@ -27,6 +19,7 @@ dependencies {
 //    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
     runtimeOnly project(':notes-reactjs')
     liquibaseRuntime 'org.liquibase:liquibase-gradle-plugin:2.0.1'
     liquibaseRuntime 'org.liquibase:liquibase-core:4.5.0'
@@ -58,10 +51,12 @@ liquibase {
     runList = 'main'
 }
 
-//bootJar.dependsOn(':notes-reactjs:npm_run_build')
-//bootJarMainClassName.dependsOn(':notes-reactjs:npm_run_build')
-jar.dependsOn ':notes-reactjs:copyReactjs'
-
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }

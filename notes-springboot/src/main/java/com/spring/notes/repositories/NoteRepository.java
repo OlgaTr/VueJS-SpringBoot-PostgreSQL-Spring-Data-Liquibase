@@ -25,6 +25,6 @@ public interface NoteRepository extends CrudRepository<Note, Long> {
     @Query("delete from notes where note_id = :noteId")
     void deleteNote(@Param("noteId") long noteId);
 
-    @Query("select * from notes left join notebooks on notebook_id = notebooks_key where username = :username")
+    @Query("select * from notes where username = :username")
     List<Note> findNotes(@Param("username") String username);
 }

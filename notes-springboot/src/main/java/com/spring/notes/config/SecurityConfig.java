@@ -31,18 +31,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .mvcMatchers(HttpMethod.POST, "/users").permitAll()
                 .mvcMatchers("/login", "/logout", "/static/**", "**.js", "**.json", "index.html", "/favicon.ico").permitAll()
-                .anyRequest().authenticated()
-//                .anyRequest().permitAll();
-                .and()
-//                .exceptionHandling()
-//                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+//                .anyRequest().authenticated()
+                .anyRequest().permitAll();
 //                .and()
-//                .formLogin()
-//                .and()
-                .httpBasic();
-//                .loginPage("/login")
-//                .permitAll()
-//                .successHandler((req, res, auth) -> res.setStatus(HttpStatus.NO_CONTENT.value()));
+//                .httpBasic();
     }
 
     @Bean

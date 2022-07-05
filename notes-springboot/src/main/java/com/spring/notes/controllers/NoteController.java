@@ -41,9 +41,9 @@ public class NoteController {
     }
 
     @GetMapping(value = "/notes")
-    public List<Note> listNotes(Principal principal) {
-        String username = principal.getName();
-        List<Note> notes = noteService.listNotes(username);
+    public List<Note> listNotes() {
+//        String username = principal.getName();
+        List<Note> notes = noteService.listNotes("user");
         return notes;
     }
 
